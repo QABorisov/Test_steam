@@ -2,37 +2,62 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+import pytest
+from faker import Faker
 
-
-def test_steam():
-    link = "https://store.steampowered.com/"
+@pytest.fixture(scope="function")
+def browser():
     browser = webdriver.Chrome()
-    browser.get(link)
-    browser.implicitly_wait(5)
-    registration = browser.find_element(By.XPATH, "//a[text()='вход']")
+    yield browser
+    browser.quit()
+
+def test_steam(browser):
+    LINK = "https://store.steampowered.com/"
+    TIMEOUT=5
+    fake_ru = Faker('ru_RU')
+
+    browser.get(LINK)
+
+    registration = WebDriverWait(browser, TIMEOUT).until(
+        EC.element_to_be_clickable((By.XPATH, "//a[text()='вход']"))
+    )
     registration.click()
 
-    url = "https://store.steampowered.com/login/?redir=&redir_ssl=1"
+    button=WebDriverWait(browser, TIMEOUT).until(
+        EC.visibility_of_element_located((By.XPATH, '//button[@class="DjSvCZoKKfoNSmarsEcTS"]'))
+    )
 
-    assert browser.current_url == url
+    assert button.is_displayed()
 
-    login = browser.find_elements(By.XPATH, "//input[@class='_2GBWeup5cttgbTw8FM3tfx']")
-    for i in login:
-        i.send_keys("Vayaaa")
 
-    button = browser.find_element(By.XPATH, '//button[@class="DjSvCZoKKfoNSmarsEcTS"]')
-    button.click()
+    login = WebDriverWait(browser, TIMEOUT).until(
+        EC.visibility_of_element_located((By.XPATH, "(//*[@type='text'])[2]"))
+    )
+    login.send_keys(fake_ru.email())
+
+    password=WebDriverWait(browser, TIMEOUT).until(
+        EC.visibility_of_element_located((By.XPATH, "//*[@type='password']"))
+    )
+    password.send_keys(fake_ru.password())
+
+    button_log_in = WebDriverWait(browser, TIMEOUT).until(
+        EC.element_to_be_clickable((By.XPATH, '//button[@class="DjSvCZoKKfoNSmarsEcTS"]'))
+    )
+    button_log_in.click()
+
+
     loading_button = WebDriverWait(browser, 10).until(
         EC.visibility_of_element_located((By.XPATH, '//button[@class="DjSvCZoKKfoNSmarsEcTS _2NVQcOnbtdGIu9O-mB9-YE"]'))
     )
     assert loading_button.is_displayed(), "Анимация загрузки не появилась"
 
-    text = "Пожалуйста, проверьте свой пароль и имя аккаунта и попробуйте снова."
+    error = "Пожалуйста, проверьте свой пароль и имя аккаунта и попробуйте снова."
     text_error = WebDriverWait(browser, 10).until(
-        EC.text_to_be_present_in_element((By.XPATH, '//*[@class="_1W_6HXiG4JJ0By1qN_0fGZ"]'), text)
+        EC.presence_of_element_located ((By.XPATH, f'//*[text()="{error}"]'))
+
     )
 
-    spiner_button = WebDriverWait(browser, 10).until(
-        EC.invisibility_of_element_located(
+    spiner_button = WebDriverWait(browser, 10).until_not(
+        EC.visibility_of_element_located(
             (By.XPATH, '//button[@class="DjSvCZoKKfoNSmarsEcTS _2NVQcOnbtdGIu9O-mB9-YE"]'))
     )
