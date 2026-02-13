@@ -20,14 +20,23 @@ class SteamConstant:
     TIMEOUT = 5
 
     REGISTRATION_LINK = (By.XPATH, "//a[text()='вход']")
-    BUTTON_LOGIN = (By.XPATH, '//button[@class="DjSvCZoKKfoNSmarsEcTS"]')
+    BUTTON_LOGIN = (By.XPATH, '(//button[@type="submit"])[2]')
     LOGIN_INPUT = (By.XPATH, "(//*[@type='text'])[2]")
     PASSWORD_INPUT = (By.XPATH, "//*[@type='password']")
-    # тут не хотел завязываться на disabled, думал это не показатель того что отображается элемент загрузки,
-    # как будто disabled просто говорит что на кнопку нажать нельзя, считал что именно _2NVQcOnbtdGIu9O-mB9-YE индикатор спинере загрузки
-    BUTTON_LOADING = (By.XPATH, '//button[contains(@class, "DjSvCZoKKfoNSmarsEcTS") and @disabled]')
-    #в тг писал, решил завязаться на div[5] вместе text
-    ERROR_TEXT = (By.XPATH, '//*[@class="ZHRZ8czyqs7NaNmv65ARI"]//form//div[5]')
+    BUTTON_LOADING = (By.XPATH, '//button[contains(@type, "submit") and @disabled]')
+    ERROR_TEXT = (By.XPATH, '//*[@id="responsive_page_template_content"]//form//div[5]')
+
+def sleep(element):
+    poll_interval = 0.5
+    start=time.time()
+
+    while True:
+        result=element.text.strip()
+        if result!="":
+            break
+        if time.time()-start > SteamConstant.TIMEOUT:
+            raise TimeoutError("Текст ошибки не появился")
+        time.sleep(poll_interval)
 
 
 def test_steam(browser):
@@ -71,21 +80,10 @@ def test_steam(browser):
     text_error = WebDriverWait(browser, SteamConstant.TIMEOUT).until(
         EC.visibility_of_element_located(SteamConstant.ERROR_TEXT)
     )
-    time.sleep(1)
+    sleep(text_error)
+    #добавил функцию sleep по статье, но как назло стало работать и без всяких слипов
 
-    assert text_error.text == error
-
-"""
-я понимаю что код выше убог, но как будто иначе никак. Без time.sleep не обойтись потому что
-питон работает быстрее чем браузер отрисовывает буквы - пока слип не добавил
-ничего не получалось. без него сравниваем " " == error
-
-Но sleep использовать нельзя по сути это плохой знак.
-
-можно конечно вместо sleep написать доп проверку что .text!=" " но это награмаждает.
-
-конкретно тут я бы предложил оставить как было
-"""
+    assert text_error.text == error, f"Ожидаемый результат: {error}. Фактичсекий: {text_error.text}"
 
 
 
