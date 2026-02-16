@@ -1,5 +1,3 @@
-import time
-
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
@@ -26,17 +24,10 @@ class SteamConstant:
     BUTTON_LOADING = (By.XPATH, '//button[contains(@type, "submit") and @disabled]')
     ERROR_TEXT = (By.XPATH, '//*[@id="responsive_page_template_content"]//form//div[5]')
 
-def sleep(element):
-    poll_interval = 0.5
-    start=time.time()
 
-    while True:
-        result=element.text.strip()
-        if result!="":
-            break
-        if time.time()-start > SteamConstant.TIMEOUT:
-            raise TimeoutError("Текст ошибки не появился")
-        time.sleep(poll_interval)
+def text_not_empty(element):
+    result = element.text.strip()
+    return result if result != "" else False
 
 
 def test_steam(browser):
@@ -80,12 +71,9 @@ def test_steam(browser):
     text_error = WebDriverWait(browser, SteamConstant.TIMEOUT).until(
         EC.visibility_of_element_located(SteamConstant.ERROR_TEXT)
     )
-    sleep(text_error)
-    #добавил функцию sleep по статье, но как назло стало работать и без всяких слипов
+
+    error_not_empty = WebDriverWait(browser, SteamConstant.TIMEOUT).until(
+        lambda d: text_not_empty(text_error)
+    )
 
     assert text_error.text == error, f"Ожидаемый результат: {error}. Фактичсекий: {text_error.text}"
-
-
-
-
-
