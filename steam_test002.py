@@ -4,12 +4,25 @@ from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import pytest
 
+class BrowserManager:
+    _instance = None
 
-@pytest.fixture(scope="class")
+    def __new__(cls):
+        if cls._instance is None:
+            cls._instance=webdriver.Chrome()
+        return cls._instance
+
+    @classmethod
+    def close(cls):
+        if cls._instance:
+            cls._instance.quit()
+            cls._instance=None
+
+@pytest.fixture(scope="session")
 def browser():
-    browser = webdriver.Chrome()
+    browser = BrowserManager()
     yield browser
-    browser.quit()
+    BrowserManager.close()
 
 
 class TestSearch:
@@ -22,8 +35,7 @@ class TestSearch:
         self.SEARCH_RESULT = (By.XPATH, '//*[contains(@class, "tag_dynamic")]')  # тут надо разбить классы контаинс
         self.SORT = (By.XPATH, '//*[@id="sort_by_trigger"]')
         self.HIGH_PRICE = (By.XPATH, '//*[@id="Price_DESC"]/..')
-        self.COUNT_GAME = (By.XPATH,
-                           '//*[@id="search_resultsRows"]//a')  # вот таких a должно быть больше N я бы сделал через find elements
+        self.COUNT_GAME = (By.XPATH, '//*[@id="search_resultsRows"]//a')
         self.FILTER_CHECK = (By.XPATH, '//*[@value="Price_DESC" and @id="sort_by" ]')
 
     def search_game(self, game):
