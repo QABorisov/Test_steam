@@ -4,19 +4,21 @@ from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import pytest
 
+
 class BrowserManager:
     _instance = None
 
     def __new__(cls):
         if cls._instance is None:
-            cls._instance=webdriver.Chrome()
+            cls._instance = webdriver.Chrome()
         return cls._instance
 
     @classmethod
     def close(cls):
         if cls._instance:
             cls._instance.quit()
-            cls._instance=None
+            cls._instance = None
+
 
 @pytest.fixture(scope="session")
 def browser():
@@ -87,7 +89,7 @@ def test_steam(browser, game_name, min_count):
     search_with_sorting = TestSearch(browser)
     browser.get(search_with_sorting.LINK)
     search_with_sorting.search_game(game_name)
-    assert search_with_sorting.get_result_search() == game_name, f"Не перешли на страницу с результатами поиска"
+    assert search_with_sorting.get_result_search() == game_name, f"Не перешли на страницу с результатами поиска {game_name}"
     search_with_sorting.send_filter()
     search_with_sorting.sort_check()
-    assert search_with_sorting.get_results_count() >= min_count
+    assert search_with_sorting.get_results_count() >= min_count, f"Ожидаем минимум {min_count} игр, фактически: {search_with_sorting.get_results_count()}"
