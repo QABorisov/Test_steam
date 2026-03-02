@@ -1,6 +1,6 @@
 import pytest
-from utils.config_reader import ConfigReader
-from pages.page_test_search import TestSearch
+from Utils.config_reader import ConfigReader
+from Pages.page_test_search import TestSearch
 
 
 @pytest.mark.parametrize("game_name, min_count",
