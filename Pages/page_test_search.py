@@ -8,20 +8,19 @@ class TestSearch:
     SEARCH = (By.XPATH, '//*[@role="combobox"]')
     SEARCH_BUTTON = (By.XPATH, '//*[@role="search"]//button[@type="submit"]')
     SEARCH_RESULT = (By.XPATH, '//*[@id="searchtag_tmpl"][2]')
-    SORT = (By.XPATH, '//*[@id="sort_by_trigger"]')
+    SORT = (By.ID, "sort_by_trigger")
     HIGH_PRICE = (By.XPATH, '//*[@id="Price_DESC"]/..')
     COUNT_GAME = (By.XPATH, '//*[@id="search_resultsRows"]//a')
     FILTER_CHECK = (By.XPATH, '//*[@value="Price_DESC" and @id="sort_by" ]')
-    BUTTON_LANGUAGE = (By.XPATH, '//*[@id="language_pulldown"]')
-    LANGUAGE_EN = (By.XPATH, '//*[contains(@onclick, "english")]')
+    PRICE_GAME = (By.XPATH, '//*[contains(@class, "discount_final_price")]')
 
     def __init__(self, timeout):
         self.browser = BrowserManager()
-        self.TIMEOUT = timeout
-        self.wait = WebDriverWait(self.browser, self.TIMEOUT)
+        self.timeout = timeout
+        self.wait = WebDriverWait(self.browser, self.timeout)
 
-    def check_home_page(self):
-        home = self.wait.until(
+    def wait_for_open(self):
+        self.wait.until(
             EC.element_to_be_clickable(self.SEARCH)
         )
 
@@ -30,6 +29,9 @@ class TestSearch:
             EC.visibility_of_element_located(self.SEARCH)
         )
         search.clear()
+        search = self.wait.until(
+            EC.visibility_of_element_located(self.SEARCH)
+        )
         search.send_keys(game)
         button_search = self.wait.until(
             EC.element_to_be_clickable(self.SEARCH_BUTTON)
@@ -38,13 +40,13 @@ class TestSearch:
 
     def get_result_search(self):
         element = self.wait.until(
-            EC.visibility_of_element_located(self.SEARCH_RESULT)
+            EC.presence_of_element_located(self.SEARCH_RESULT)
         )
 
         return element.get_attribute("data-tag_value")
 
     def sort_check(self):
-        element = self.wait.until(
+        self.wait.until(
             EC.presence_of_element_located(self.FILTER_CHECK)
         )
 
@@ -54,7 +56,7 @@ class TestSearch:
         )
         sort.click()
         price = self.wait.until(
-            EC.visibility_of_element_located(self.HIGH_PRICE)
+            EC.element_to_be_clickable(self.HIGH_PRICE)
         )
         price.click()
 
@@ -62,4 +64,22 @@ class TestSearch:
         count_game = self.wait.until(
             EC.presence_of_all_elements_located(self.COUNT_GAME)
         )
+
         return len(count_game)
+
+    def get_list_price_game(self, N):
+        price_game = self.wait.until(
+            EC.presence_of_all_elements_located(self.PRICE_GAME)
+        )[:N]
+        list_game = []
+        for i in price_game:
+            price = i.get_attribute("textContent").replace(" руб", "").replace(",", ".")
+            if price == "бесплатно" or price == "Free":
+                list_game.append(0)
+            else:
+                list_game.append(float(price))
+        list_sorted_game = list_game.copy()
+        list_sorted_game.sort(reverse=True)
+        return list_game == list_sorted_game
+
+        # list_game=[i.get_attribute("textContent") for i in price_game]
