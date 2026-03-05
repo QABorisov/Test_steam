@@ -16,10 +16,11 @@ class TestSearch:
     SEARCH_RESULT_GAME = (By.ID, 'search_result_container')
     LOADING_SORT = (By.XPATH, '//*[contains(@style, "opacity")and @id="search_result_container"]')
 
-    def __init__(self, timeout):
+    def __init__(self, timeout, poll_frequency):
         self.browser = BrowserManager()
         self.timeout = timeout
-        self.wait = WebDriverWait(self.browser, self.timeout)
+        self.poll_frequency = poll_frequency
+        self.wait = WebDriverWait(self.browser, self.timeout, self.poll_frequency)
 
     def wait_for_open(self):
         self.wait.until(
@@ -48,7 +49,9 @@ class TestSearch:
         return element.get_attribute("data-tag_value")
 
     def sort_check(self):
-
+        self.wait.until(
+            EC.presence_of_element_located(self.LOADING_SORT)
+        )
         self.wait.until_not(
             EC.presence_of_element_located(self.LOADING_SORT)
         )
