@@ -11,8 +11,10 @@ class TestSearch:
     SORT = (By.ID, "sort_by_trigger")
     HIGH_PRICE = (By.XPATH, '//*[@id="Price_DESC"]/..')
     COUNT_GAME = (By.XPATH, '//*[@id="search_resultsRows"]//a')
-    FILTER_CHECK = (By.XPATH, '//*[@value="Price_DESC" and @id="sort_by" ]')
+    FILTER_CHECK = (By.XPATH, '//*[@value="Price_DESC"]')
     PRICE_GAME = (By.XPATH, '//*[contains(@class, "discount_final_price")]')
+    SEARCH_RESULT_GAME = (By.ID, 'search_result_container')
+    LOADING_SORT = (By.XPATH, '//*[contains(@style, "opacity")and @id="search_result_container"]')
 
     def __init__(self, timeout):
         self.browser = BrowserManager()
@@ -46,6 +48,10 @@ class TestSearch:
         return element.get_attribute("data-tag_value")
 
     def sort_check(self):
+
+        self.wait.until_not(
+            EC.presence_of_element_located(self.LOADING_SORT)
+        )
         self.wait.until(
             EC.presence_of_element_located(self.FILTER_CHECK)
         )
@@ -74,7 +80,7 @@ class TestSearch:
         list_game = []
         for i in price_game:
             price = i.get_attribute("textContent").replace(" руб", "").replace(",", ".")
-            if price == "бесплатно" or price == "Free":
+            if price == "Бесплатно" or price == "Free":
                 list_game.append(0)
             else:
                 list_game.append(float(price))
@@ -82,4 +88,7 @@ class TestSearch:
         list_sorted_game.sort(reverse=True)
         return list_game == list_sorted_game
 
-        # list_game=[i.get_attribute("textContent") for i in price_game]
+    def check_loading_search_page(self):
+        self.wait.until(
+            EC.visibility_of_element_located(self.SEARCH_RESULT_GAME)
+        )
