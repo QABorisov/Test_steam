@@ -1,8 +1,7 @@
-import time
-
 import pytest
 from Utils.config_reader import ConfigReader
 from Pages.page_test_search import TestSearch
+from Pages.page_test_sort import TestSort
 
 
 @pytest.mark.parametrize("game_name, min_count",
@@ -15,13 +14,17 @@ def test_steam(browser, game_name, min_count):
     link = config.get("link")
     timeout = config.get("timeout")
     poll_frequency = config.get("poll_frequency")
-    search_with_sorting = TestSearch(timeout, poll_frequency)
+    search = TestSearch(timeout, poll_frequency)
+    sorting = TestSort(timeout, poll_frequency)
     browser.get(link)
-    search_with_sorting.wait_for_open()
-    search_with_sorting.search_game(game_name)
-    search_with_sorting.check_loading_search_page()
-    assert search_with_sorting.get_result_search() == game_name, f"Не перешли на страницу с результатами поиска {game_name}"
-    search_with_sorting.send_filter()
-    search_with_sorting.sort_check()
-    assert search_with_sorting.get_list_price_game(
-        min_count), f"Сортировка из {min_count} игр {game_name} по убыванию цены некорректна"
+    search.wait_for_open()
+    search.search_game(game_name)
+    sorting.check_loading_search_page()
+    assert sorting.get_result_search() == game_name, f"Не перешли на страницу с результатами поиска {game_name}"
+    sorting.send_filter()
+    sorting.wait_for_sort()
+    list_game = sorting.get_list_price_game(
+        min_count)
+    list_sorted_game = list_game.copy()
+    list_sorted_game.sort(reverse=True)
+    assert list_game == list_sorted_game, f"Сортировка из {min_count} игр {game_name} по убыванию цены некорректна"
