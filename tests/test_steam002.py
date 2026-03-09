@@ -1,7 +1,7 @@
 import pytest
-from Utils.config_reader import ConfigReader
-from Pages.page_test_search import TestSearch
-from Pages.page_test_sort import TestSort
+from utils.config_reader import ConfigReader
+from pages.page_test_search import TestSearch
+from pages.page_test_sort import TestSort
 
 
 @pytest.mark.parametrize("game_name, min_count",
@@ -19,7 +19,7 @@ def test_steam(browser, game_name, min_count):
     browser.get(link)
     search.wait_for_open()
     search.search_game(game_name)
-    sorting.check_loading_search_page()
+    sorting.wait_loading_search_page()
     assert sorting.get_result_search() == game_name, f"Не перешли на страницу с результатами поиска {game_name}"
     sorting.send_filter()
     sorting.wait_for_sort()

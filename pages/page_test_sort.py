@@ -64,7 +64,7 @@ class TestSort:
                 list_game.append(float(price))
         return list_game
 
-    def check_loading_search_page(self):
+    def wait_loading_search_page(self):
         self.wait.until(
             EC.visibility_of_element_located(self.SEARCH_RESULT_GAME)
         )
