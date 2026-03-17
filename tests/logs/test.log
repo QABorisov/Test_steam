@@ -1,19 +1,4 @@
-[2026-03-17 05:11:55,838-INFO]-Подготовка alerts
-[2026-03-17 05:11:55,838-INFO]-Start webdriver: chrome, options: []
-[2026-03-17 05:11:56,831-INFO]-AlertsPage[None]: load_page https://the-internet.herokuapp.com/javascript_alerts
-[2026-03-17 05:11:56,832-INFO]-Browser0ff6dd8853332c6b1a1ead5b04d262a7: get 'https://the-internet.herokuapp.com/javascript_alerts'
-[2026-03-17 05:12:04,152-INFO]-AlertsPage[None]: wait for open
-[2026-03-17 05:12:04,153-INFO]-WebElement[AlertsPage -> title]  wait for presence_of_element_located
-[2026-03-17 05:12:04,171-INFO]-Alerts click and close alert
-[2026-03-17 05:12:04,172-INFO]-Button[AlertsPage -> Alert button]  wait for element_to_be_clickable
-[2026-03-17 05:12:04,226-INFO]-Button[AlertsPage -> Alert button]: click
-[2026-03-17 05:12:04,333-INFO]-Browser0ff6dd8853332c6b1a1ead5b04d262a7 get alert text
-[2026-03-17 05:12:04,334-INFO]-Browser0ff6dd8853332c6b1a1ead5b04d262a7 switch to alert
-[2026-03-17 05:12:04,334-INFO]-Browser0ff6dd8853332c6b1a1ead5b04d262a7 wait alert present
-[2026-03-17 05:12:04,339-INFO]-Browser0ff6dd8853332c6b1a1ead5b04d262a7 accept_alert
-[2026-03-17 05:12:04,339-INFO]-Browser0ff6dd8853332c6b1a1ead5b04d262a7 switch to alert
-[2026-03-17 05:12:04,339-INFO]-Browser0ff6dd8853332c6b1a1ead5b04d262a7 wait alert present
-[2026-03-17 05:12:04,348-INFO]-Alerts get text result
-[2026-03-17 05:12:04,349-INFO]-WebElement[AlertsPage -> Result WebElement]  wait for presence_of_element_located
-[2026-03-17 05:12:04,370-INFO]-WebElement[AlertsPage -> Result WebElement] get text
-[2026-03-17 05:12:04,389-INFO]-WebElement[AlertsPage -> Result WebElement]: text = 'You successfully clicked an alert'
+[2026-03-18 04:08:43,395-INFO]-Подготовка Basic Authorization
+[2026-03-18 04:08:43,396-INFO]-Start webdriver: chrome, options: []
+[2026-03-18 04:08:44,250-INFO]-Подготовка alerts
+[2026-03-18 04:08:44,250-INFO]-Start webdriver: chrome, options: []

@@ -1,43 +1,25 @@
-import time
 from logger.logger_config import LoggerConfig
 from logger.logger import Logger
 from browser.browser import Browser
 from browser.browser_factory import BrowserFactory
-from pages.basic_authorization_page import BasicAuthorization
-from pages.alerts_page import AlertsPage
-from faker import Faker
+from pages.basic_auth_page import BasicAuthPage
+from utils.config_reader import ConfigReader
 
 
-def test_alerts():
-    wait_text_alert = "I am a JS Alert"
-    wait_result_alert = "You subccessfuly clicked an alert"
-    wait_text_confirm = "I am a JS Confirm"
-    wait_result_confirm = "You clicked: Ok"
-    wait_text_promt = "I am a JS Prompt"
-    wait_result_promt = "You entered: "
-    Logger.info("Подготовка alerts")
+def test_basic_auth():
+    wait_result_alert = "Congratulations! You must have the proper credentials."
+
+    Logger.info("Подготовка Basic Authorization")
     driver = BrowserFactory.get_driver()
     browser = Browser(driver)
-    alerts = AlertsPage(browser)
-    alerts.load_page()
-    alerts.wait_for_open()
+    basic_auth = BasicAuthPage(browser)
+    config = ConfigReader()
+    link_auth = config.get("basic_authorization")
+    user = config.get("user")
+    password = config.get("password")
 
-    text_alert = alerts.click_and_close_alert()
-    assert wait_text_alert == text_alert, f"Ожидаемый текст alert:{wait_text_alert}, фактический: {text_alert}"
-    text_result_alert = alerts.get_text_result()
-    assert wait_result_alert == text_result_alert, f"Ожидаемый текст alert:{wait_result_alert}, фактический: {text_result_alert}"
-    time.sleep(2)
+    basic_auth.open_and_authorization(link_auth, user, password)
+    basic_auth.wait_for_open()
 
-    text_confirm = alerts.click_and_close_confirm()
-    assert wait_text_confirm == text_confirm, f"Ожидаемый текст alert:{wait_text_confirm}, фактический: {text_confirm}"
-    text_result_confirm = alerts.get_text_result()
-    assert wait_result_confirm == text_result_confirm, f"Ожидаемый текст alert:{wait_result_confirm}, фактический: {text_result_confirm}"
-    time.sleep(2)
-
-    text_promt = alerts.click_promt()
-    assert wait_text_promt == text_promt, f"Ожидаемый текст alert:{wait_text_promt}, фактический: {text_promt}"
-    fake = Faker()
-    random_word = fake.word()
-    alerts.send_keys_promt(random_word)
-    text_result_promt = alerts.get_text_result()
-    assert wait_result_promt + random_word == text_result_promt, f"Ожидаемый текст alert:{wait_result_promt}{random_word}, фактический: {text_result_promt}"
+    text_result_auth = basic_auth.get_text_result()
+    assert text_result_auth == wait_result_alert, f"Ожидаемый текст alert:{wait_result_alert}, фактический: {text_result_auth}"

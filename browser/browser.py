@@ -1,3 +1,9 @@
+from __future__ import annotations
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from elements.base_element import BaseElement
+
 from logger.logger import Logger
 from browser.browser_factory import BrowserFactory
 from selenium.common import WebDriverException
@@ -7,11 +13,7 @@ import time
 from selenium.webdriver.support import expected_conditions as EC
 
 
-# from elements.base_element import BaseElement
-# вот это не могу импортировать, как будто в BaseElement сущесвтует import текущего файла и как бы зацикливается
-
-
-class Browser():
+class Browser:
     DEFAULT_TIMEOUT = 20
     PAGE_LOAD_TIMEOUT = 120
 
@@ -103,10 +105,9 @@ class Browser():
         Logger.info(f"{self} send {text} to alert")
         return self.switch_to_alert().send_keys(text)
 
-    # def switch_to_frame(self, frame: BaseElement):
-    #     Logger.info(f"{self} switch to frame")
-    #     return self.driver.switch_to.frame(frame.wait_for_presence())
-    # выше описал почему закоммитил
+    def switch_to_frame(self, frame: BaseElement):
+        Logger.info(f"{self} switch to frame")
+        return self.driver.switch_to.frame(frame.wait_for_presence())
 
     def __str__(self):
         return f"{self.__class__.__name__}{self._driver.session_id}"

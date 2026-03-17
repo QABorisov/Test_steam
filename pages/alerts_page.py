@@ -7,12 +7,11 @@ from pages.base_page import BasePage
 
 
 class AlertsPage(BasePage):
-    LINK = "https://the-internet.herokuapp.com/javascript_alerts"
     UNIQUE_ELEMENT_LOC = "//h3[contains(text(), 'JavaScript Alerts')]"
     ALERT_LOC = '//*[@onclick="jsAlert()"]'
     CONFIRM_LOC = '//*[@onclick="jsConfirm()"]'
     PROMT_LOC = '//*[@onclick="jsPrompt()"]'
-    RESULT_LOC = "//*[@id='result']"
+    RESULT_LOC = "result"
 
     def __init__(self, browser):
         super().__init__(browser)

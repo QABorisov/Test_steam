@@ -4,7 +4,7 @@ import sys
 from logger.logger_config import LoggerConfig
 
 
-class Logger():
+class Logger:
     if not os.path.isdir(LoggerConfig.LOGGER_DIR_NAME):
         os.makedirs(LoggerConfig.LOGGER_DIR_NAME)
     __logger = logging.getLogger(LoggerConfig.LOGGER_NAME)

@@ -1,0 +1,6 @@
+{
+  "user": "admin",
+  "password": "admin",
+  "basic_authorization": "https://the-internet.herokuapp.com/basic_auth",
+  "link_alerts": "https://the-internet.herokuapp.com/javascript_alerts"
+}

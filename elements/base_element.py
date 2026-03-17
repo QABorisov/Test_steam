@@ -1,4 +1,8 @@
-from browser.browser import Browser
+from __future__ import annotations
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from browser.browser import Browser
 from selenium.common import TimeoutException, WebDriverException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webelement import WebElement
@@ -12,7 +16,7 @@ class BaseElement:
 
     def __init__(
             self,
-            browser=Browser,
+            browser: Browser,
             locator: str = None,
             description: str = None,
             timeout: int = DEFAULT_TINEOUT
