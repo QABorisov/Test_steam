@@ -30,6 +30,13 @@ class AlertsPage(BasePage):
         self.browser.accept_alert()
         return text_alert
 
+    def click_js_and_close_alert(self):
+        Logger.info(f"{self.name} click js and close alert")
+        self.alert_button.js_click()
+        text_alert = self.browser.get_alert_text()
+        self.browser.accept_alert()
+        return text_alert
+
     def click_and_close_confirm(self):
         Logger.info(f"{self.name} click and close confirm")
         self.confirm_button.click()
@@ -37,9 +44,22 @@ class AlertsPage(BasePage):
         self.browser.accept_alert()
         return text_confirm
 
+    def click_js_and_close_confirm(self):
+        Logger.info(f"{self.name} click and close confirm")
+        self.confirm_button.js_click()
+        text_confirm = self.browser.get_alert_text()
+        self.browser.accept_alert()
+        return text_confirm
+
     def click_promt(self):
         Logger.info(f"{self.name} click and close promt")
         self.promt_button.click()
+        text_promt = self.browser.get_alert_text()
+        return text_promt
+
+    def click_js_promt(self):
+        Logger.info(f"{self.name} click and close promt")
+        self.promt_button.js_click()
         text_promt = self.browser.get_alert_text()
         return text_promt
 

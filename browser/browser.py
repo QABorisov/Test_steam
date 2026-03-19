@@ -88,6 +88,10 @@ class Browser:
         Logger.info(f"{self} wait alert present")
         return self._wait.until(EC.alert_is_present())
 
+    def wait_alert_close(self):
+        Logger.info(f"{self} wait alert close")
+        return self._wait.until_not(EC.alert_is_present())
+
     def switch_to_alert(self):
         Logger.info(f"{self} switch to alert")
         self.wait_alert_present()
