@@ -78,8 +78,8 @@ class BaseElement:
             Logger.error(f"{self} {err}")
             raise
 
-    def js_click(self) ->None:
-        element=self.wait_for_presence()
+    def js_click(self) -> None:
+        element = self.wait_for_presence()
         Logger.info(f"{self} js click")
         self.browser.execute_script("arguments[0].click();", element)
 

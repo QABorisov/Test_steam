@@ -98,17 +98,17 @@ class Browser:
         return self.driver.switch_to.alert
 
     def get_alert_text(self):
-        alert=self.switch_to_alert()
+        alert = self.switch_to_alert()
         Logger.info(f"{self} get alert text")
         return alert.text
 
     def accept_alert(self):
-        alert=self.switch_to_alert()
+        alert = self.switch_to_alert()
         Logger.info(f"{self} accept_alert")
         return alert.accept()
 
     def send_keys_alert(self, text: str):
-        alert=self.switch_to_alert()
+        alert = self.switch_to_alert()
         Logger.info(f"{self} send {text} to alert")
         return alert.send_keys(text)
 

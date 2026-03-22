@@ -3,5 +3,7 @@
   "password": "admin",
   "basic_authorization": "https://the-internet.herokuapp.com/basic_auth",
   "link_alerts": "https://the-internet.herokuapp.com/javascript_alerts",
-  "link_alerts_context_click": "https://the-internet.herokuapp.com/context_menu"
+  "link_alerts_context_click": "https://the-internet.herokuapp.com/context_menu",
+  "link_actions": "https://the-internet.herokuapp.com/horizontal_slider",
+  "link_hovers": "https://the-internet.herokuapp.com/hovers"
 }

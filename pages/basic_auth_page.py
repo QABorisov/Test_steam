@@ -18,7 +18,6 @@ class BasicAuthPage(BasePage):
         self.result_element = WebElement(self.browser, self.RESULT_LOC,
                                          description="BasicAuthPage -> Result WebElement")
 
-
     def get_text_result(self):
         Logger.info(f"{self.name} get text result")
         return self.result_element.get_text()

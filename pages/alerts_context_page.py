@@ -27,4 +27,3 @@ class AlertsContextClickPage(BasePage):
         actions = ActionChains(self.browser.driver)
         Logger.info(f"{self.name} move to element box, click")
         actions.move_to_element(box).context_click(box).perform()
-
