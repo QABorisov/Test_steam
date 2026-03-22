@@ -98,16 +98,19 @@ class Browser:
         return self.driver.switch_to.alert
 
     def get_alert_text(self):
+        alert=self.switch_to_alert()
         Logger.info(f"{self} get alert text")
-        return self.switch_to_alert().text
+        return alert.text
 
     def accept_alert(self):
+        alert=self.switch_to_alert()
         Logger.info(f"{self} accept_alert")
-        return self.switch_to_alert().accept()
+        return alert.accept()
 
     def send_keys_alert(self, text: str):
+        alert=self.switch_to_alert()
         Logger.info(f"{self} send {text} to alert")
-        return self.switch_to_alert().send_keys(text)
+        return alert.send_keys(text)
 
     def switch_to_frame(self, frame: BaseElement):
         Logger.info(f"{self} switch to frame")

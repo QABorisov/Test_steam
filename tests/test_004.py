@@ -19,6 +19,7 @@ def test_alerts_context_click():
     browser.get(link_alerts_context_click)
     alerts_context.wait_for_open()
     alerts_context.click_on_the_box()
-    text_alert = alerts_context.get_alert_text()
+    text_alert = browser.get_alert_text()
     assert wait_text_alert == text_alert, f"Ожидаемый текст alert:{wait_text_alert}, фактический: {text_alert}"
-    alerts_context.close_alert()
+    browser.accept_alert()
+    browser.wait_alert_close()

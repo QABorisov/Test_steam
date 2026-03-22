@@ -22,15 +22,9 @@ class AlertsContextClickPage(BasePage):
 
     def click_on_the_box(self):
         Logger.info(f"{self.name} click on the box")
-        box = self.box_element.wait_for_presence()
+        box = self.box_element.wait_for_visible()
+        Logger.info(f"{self.name} using ActionChains with the original driver")
         actions = ActionChains(self.browser.driver)
+        Logger.info(f"{self.name} move to element box, click")
         actions.move_to_element(box).context_click(box).perform()
 
-    def get_alert_text(self):
-        Logger.info(f"{self.name} get alert text")
-        return self.browser.get_alert_text()
-
-    def close_alert(self):
-        Logger.info(f"{self.name} alert close")
-        self.browser.accept_alert()
-        self.browser.wait_alert_close()

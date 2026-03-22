@@ -18,10 +18,6 @@ class BasicAuthPage(BasePage):
         self.result_element = WebElement(self.browser, self.RESULT_LOC,
                                          description="BasicAuthPage -> Result WebElement")
 
-    def open_and_authorization(self, link, user, password):
-        Logger.info(f"{self.name} authorization")
-        auth_link = link.replace("://", f"://{user}:{password}@")
-        self.browser.get(auth_link)
 
     def get_text_result(self):
         Logger.info(f"{self.name} get text result")

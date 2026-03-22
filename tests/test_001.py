@@ -17,8 +17,9 @@ def test_basic_auth():
     link_auth = config.get("basic_authorization")
     user = config.get("user")
     password = config.get("password")
-
-    basic_auth.open_and_authorization(link_auth, user, password)
+    Logger.info(f"{basic_auth.name} authorization")
+    auth_link = link_auth.replace("://", f"://{user}:{password}@")
+    browser.get(auth_link)
     basic_auth.wait_for_open()
 
     text_result_auth = basic_auth.get_text_result()
