@@ -30,8 +30,8 @@ def test_handlers():
     browser.driver.switch_to.window(handles[-1])
     title_new_window_1 = handlers.get_title()
     text_new_window_1 = handlers.get_text_new_window(title_new_window_1)
-    assert wait_text_new_window == text_new_window_1, f"Ожидаемый текст1:{wait_text_new_window}, фактический: {text_new_window_1}"
-    assert wait_title_new_window == title_new_window_1, f"Ожидаемый title1:{wait_title_new_window}, фактический: {title_new_window_1}"
+    assert wait_text_new_window == text_new_window_1, f"Ожидаемый текст:{wait_text_new_window}, фактический: {text_new_window_1}"
+    assert wait_title_new_window == title_new_window_1, f"Ожидаемый title:{wait_title_new_window}, фактический: {title_new_window_1}"
 
     browser.switch_to_default_window()
     handlers.wait_for_open()
@@ -41,8 +41,8 @@ def test_handlers():
     browser.driver.switch_to.window(handles[-1])
     title_new_window_2 = handlers.get_title()
     text_new_window_2 = handlers.get_text_new_window(title_new_window_2)
-    assert wait_text_new_window == text_new_window_2, f"Ожидаемый текст1:{wait_text_new_window}, фактический: {text_new_window_2}"
-    assert wait_title_new_window == title_new_window_2, f"Ожидаемый title1:{wait_title_new_window}, фактический: {title_new_window_2}"
+    assert wait_text_new_window == text_new_window_2, f"Ожидаемый текст:{wait_text_new_window}, фактический: {text_new_window_2}"
+    assert wait_title_new_window == title_new_window_2, f"Ожидаемый title:{wait_title_new_window}, фактический: {title_new_window_2}"
 
     browser.switch_to_default_window()
     handlers.wait_for_open()
