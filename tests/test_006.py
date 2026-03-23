@@ -29,6 +29,8 @@ def test_hovers():
     browser.driver.back()
     hovers.wait_for_open()
 
+    # я понимаю, что вряд ли требовалось реализовать через дублирование кода, но там страница с юзером не открывалась,
+    # решил что пока оставлю так после ревью поправлю если нужно
     hovers.hover_over_user_2()
     name_user2 = hovers.get_name_user2().replace("name: ", "")
     assert wait_name_user2 == name_user2, f"Ожидаемое имя:{wait_name_user2}, фактическое: {name_user2}"
