@@ -56,6 +56,9 @@ class BaseElement:
     def wait_for_presence(self) -> WebElement:
         return self._wait_for(expected_condition=expected_conditions.presence_of_element_located)
 
+    def wait_for_presence_of_all_elements(self) -> WebElement:
+        return self._wait_for(expected_condition=expected_conditions.presence_of_all_elements_located)
+
     def wait_for_clickable(self) -> WebElement:
         return self._wait_for(expected_condition=expected_conditions.element_to_be_clickable)
 

@@ -24,17 +24,26 @@ class ActionsPage(BasePage):
         self.result_slider_element = WebElement(self.browser, self.RESULT_SLIDER_LOC,
                                                 description="ActionsPage -> Result Slider WebElement")
 
-    def set_slider_value(self, value):
+    def set_slider_value(self, value, step):
         Logger.info(f"{self.name} set slider value: {value}")
         slider = self.slider_input.wait_for_clickable()
-        for _ in range(value):
-            slider.send_keys(Keys.ARROW_RIGHT)
+        current_value = float(self.result_slider_element.get_text())
+        key_to_send = Keys.ARROW_RIGHT if value * step > current_value else Keys.ARROW_LEFT
+        slider.send_keys(key_to_send * value)
+        # я реализовал как ты просишь, но не совсем согласен, чтобы понять в какую сторону двигать
+        # приходится завязаться на self.result_slider_element, но это нелогично ведь нам его и нужно проверить это ведь цель кейса
+
+    def get_min_slider(self):
+        min_slider = int(float(self.slider_input.get_attribute("min")))
+        return min_slider
+
+    def get_max_slider(self):
+        max_slider = int(float(self.slider_input.get_attribute("max")))
+        return max_slider
 
     def get_step_slider(self):
-        Logger.info(f"{self.name} get_step_slider")
         step = self.slider_input.get_attribute("step")
         return step
 
     def get_result_slider(self):
-        Logger.info(f"{self.name} get result slider")
-        return self.result_slider_element.get_text()
+        return float(self.result_slider_element.get_text())

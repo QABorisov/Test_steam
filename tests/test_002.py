@@ -7,7 +7,7 @@ from faker import Faker
 from utils.config_reader import ConfigReader
 
 
-def test_alerts():
+def test_alerts(browser):
     wait_text_alert = "I am a JS Alert"
     wait_result_alert = "You subccessfuly clicked an alert"
     wait_text_confirm = "I am a JS Confirm"
@@ -16,15 +16,13 @@ def test_alerts():
     wait_result_promt = "You entered: "
 
     Logger.info("Подготовка alerts")
-    driver = BrowserFactory.get_driver()
-    browser = Browser(driver)
     alerts = AlertsPage(browser)
     config = ConfigReader()
     link_alerts = config.get("link_alerts")
 
     browser.get(link_alerts)
-
     alerts.wait_for_open()
+
     text_alert = alerts.click_and_close_alert()
     assert wait_text_alert == text_alert, f"Ожидаемый текст alert:{wait_text_alert}, фактический: {text_alert}"
     text_result_alert = alerts.get_text_result()

@@ -69,5 +69,4 @@ class AlertsPage(BasePage):
         self.browser.accept_alert()
 
     def get_text_result(self):
-        Logger.info(f"{self.name} get text result")
         return self.result_element.get_text()
