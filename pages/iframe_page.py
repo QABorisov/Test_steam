@@ -12,7 +12,7 @@ class IFrameLeftPanelPage(BasePage):
 
     ALERT_FRAME_WINDOW_LOC = '//*[@class="element-group"][3]//*[@class="header-wrapper"]'
     NESTED_FRAMES_LOC = '//*[@class="element-group"][3]//*[@id="item-3"]'
-    FRAMES_LOC = '//*[@class="element-group"][3]//*[@id="item-2"]'
+    FRAMES_LOC = '//*[@class="element-group"][3]//*[@id="item-2"]//a'
 
     def __init__(self, browser):
         super().__init__(browser)
@@ -38,12 +38,4 @@ class IFrameLeftPanelPage(BasePage):
     def click_frames(self):
         Logger.info(f"{self.name} click frames")
         self.frames_button.js_click()
-        # for _ in range(50):
-        #     element=self.frames_button.wait_for_clickable()
-        #     ActionChains(self.browser.driver).move_to_element(element).click().perform()
-        #     try:
-        #         frames.wait_for_open()
-        #         return True
-        #     except:
-        #         Logger.info("Клик не прошел, пробуем еще раз...")
-        # return False
+

@@ -1,5 +1,3 @@
-import time
-
 from logger.logger_config import LoggerConfig
 from logger.logger import Logger
 from browser.browser import Browser
@@ -33,9 +31,7 @@ def test_iframe(browser):
     assert wait_text_nested_frames_parent == text_parent_frame, f"Ожидаемый текст parent:{wait_text_nested_frames_parent}, фактический: {text_parent_frame}"
     assert wait_text_nested_frames_child == text_child_frame, f"Ожидаемый текст child:{wait_text_nested_frames_child}, фактический: {text_child_frame}"
 
-    # browser.get(link_iframes)
     iframelefpanel.click_frames()
-    # вот ошибка тут я хоть убей не могу кликнуть, точнее кликаю но не работает
     frames.wait_for_open()
 
     text_top_frames = frames.get_text_top_frame()
