@@ -6,5 +6,6 @@
   "link_alerts_context_click": "https://the-internet.herokuapp.com/context_menu",
   "link_actions": "https://the-internet.herokuapp.com/horizontal_slider",
   "link_hovers": "https://the-internet.herokuapp.com/hovers",
-  "link_handlers": "https://the-internet.herokuapp.com/windows"
+  "link_handlers": "https://the-internet.herokuapp.com/windows",
+  "link_iframe": "https://demoqa.com/frames"
 }
