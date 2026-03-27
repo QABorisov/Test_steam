@@ -2,7 +2,7 @@ from elements.button import Button
 from elements.input import Input
 from elements.label import Label
 from elements.web_element import WebElement
-from elements.web_elements import WebElements
+from elements.multi_web_element import MultiWebElement
 from logger.logger import Logger
 from pages.base_page import BasePage
 

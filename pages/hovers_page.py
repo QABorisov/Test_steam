@@ -2,7 +2,7 @@ from elements.button import Button
 from elements.input import Input
 from elements.label import Label
 from elements.web_element import WebElement
-from elements.web_elements import WebElements
+from elements.multi_web_element import MultiWebElement
 from logger.logger import Logger
 from pages.base_page import BasePage
 from selenium.webdriver.common.action_chains import ActionChains
@@ -22,11 +22,11 @@ class HoversPage(BasePage):
         self.unique_element = WebElement(self.browser, self.UNIQUE_ELEMENT_LOC,
                                          description="HoversPage -> title")
 
-        self.count_users_element = WebElements(self.browser, self.COUNT_USERS_LOC,
-                                               description="HoversPage -> Count users elements")
+        self.count_users_element = MultiWebElement(self.browser, self.COUNT_USERS_LOC,
+                                                   description="HoversPage -> Count users elements")
 
     def get_count_users(self):
-        Logger.info(f"{self.name} get count users by BeautifulSoup")
+        Logger.info(f"{self.name} get count users by MultiWebElement")
         users_list = list(self.count_users_element)
         return len(users_list)
 

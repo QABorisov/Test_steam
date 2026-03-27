@@ -3,7 +3,7 @@ from elements.web_element import WebElement
 from browser.browser import Browser
 
 
-class WebElements():
+class MultiWebElement:
     DEFAULT_TIMEOUT = 20
 
     def __init__(
@@ -30,9 +30,8 @@ class WebElements():
                                      )
         if not current_element.is_exists():
             raise StopIteration
-        else:
-            self.index += 1
-            return current_element
+        self.index += 1
+        return current_element
 
     def __str__(self):
         return f"{self.__class__.__name__}[{self.description}]"
