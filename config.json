@@ -7,5 +7,6 @@
   "link_actions": "https://the-internet.herokuapp.com/horizontal_slider",
   "link_hovers": "https://the-internet.herokuapp.com/hovers",
   "link_handlers": "https://the-internet.herokuapp.com/windows",
-  "link_iframe": "https://demoqa.com/frames"
+  "link_iframe": "https://demoqa.com/frames",
+  "link_dynamic_content": "https://the-internet.herokuapp.com/dynamic_content"
 }
