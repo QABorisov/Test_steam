@@ -30,12 +30,8 @@ class IFrameLeftPanelPage(BasePage):
         Logger.info(f"{self.name} click alert frame window and nested frames")
         self.alert_frame_window_button.js_click()
         self.alert_frame_window_button.js_click()
-        # второй клик нужен так как при открытии страницы ссылка сразу ведет на открытый раздел ALERT FRAME WINDOW
-        # и без него раздел наоборот закрывается, можно реализовать через if get_attribute но это геммор
-        # по идее вообще без клика можно обойтись просто этот пункт в задании есть
         self.nested_button.click()
 
     def click_frames(self):
-        Logger.info(f"{self.name} click frames")
         self.frames_button.js_click()
 

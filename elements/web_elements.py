@@ -1,5 +1,45 @@
 from elements.base_element import BaseElement
+from elements.web_element import WebElement
+from browser.browser import Browser
 
 
-class WebElements(BaseElement):
-    pass
+class WebElements():
+    DEFAULT_TIMEOUT = 20
+
+    def __init__(
+            self,
+            browser: Browser,
+            formattable_xpath: str = None,
+            description: str = None,
+            timeout: int = DEFAULT_TIMEOUT
+    ) ->None:
+        self.index=1
+        self.browser=browser
+        self.formattable_xpath=formattable_xpath
+        self.timeout=timeout if timeout is not None else self.DEFAULT_TIMEOUT
+        self.description=description if description else self.formattable_xpath.format("'index'")
+
+    def __iter__(self):
+        self.index=1
+        return self
+
+    def __next__(self) ->WebElement:
+        current_element = WebElement(self.browser, self.formattable_xpath.format(self.index),
+                                     f"{self.description}[{self.index}]",
+                                     timeout=self.timeout
+                                     )
+        if not current_element.is_exists():
+            raise StopIteration
+        else:
+            self.index+=1
+            return current_element
+
+    def __str__(self):
+        return f"{self.__class__.__name__}[{self.description}]"
+
+    def __repr__(self):
+        return str(self)
+
+
+
+

@@ -1,4 +1,4 @@
-from __future__ import annotations
+
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -12,14 +12,14 @@ from selenium.webdriver.support import expected_conditions
 
 
 class BaseElement:
-    DEFAULT_TINEOUT = 20
+    DEFAULT_TIMEOUT = 20
 
     def __init__(
             self,
-            browser: Browser,
+            browser: "Browser",
             locator: str = None,
             description: str = None,
-            timeout: int = DEFAULT_TINEOUT
+            timeout: int = DEFAULT_TIMEOUT
     ):
         self.browser = browser
         self.timeout = timeout
@@ -56,8 +56,8 @@ class BaseElement:
     def wait_for_presence(self) -> WebElement:
         return self._wait_for(expected_condition=expected_conditions.presence_of_element_located)
 
-    def wait_for_presence_of_all_elements(self) -> WebElement:
-        return self._wait_for(expected_condition=expected_conditions.presence_of_all_elements_located)
+    # def wait_for_presence_of_all_elements(self) -> WebElement:
+    #     return self._wait_for(expected_condition=expected_conditions.presence_of_all_elements_located)
 
     def wait_for_clickable(self) -> WebElement:
         return self._wait_for(expected_condition=expected_conditions.element_to_be_clickable)

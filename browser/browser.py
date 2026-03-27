@@ -1,4 +1,4 @@
-from __future__ import annotations
+
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -120,7 +120,7 @@ class Browser:
         Logger.info(f"{self} send {text} to alert")
         return alert.send_keys(text)
 
-    def switch_to_frame(self, frame: BaseElement):
+    def switch_to_frame(self, frame: "BaseElement"):
         Logger.info(f"{self} switch to frame")
         return self.driver.switch_to.frame(frame.wait_for_presence())
 
