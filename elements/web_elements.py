@@ -12,18 +12,18 @@ class WebElements():
             formattable_xpath: str = None,
             description: str = None,
             timeout: int = DEFAULT_TIMEOUT
-    ) ->None:
-        self.index=1
-        self.browser=browser
-        self.formattable_xpath=formattable_xpath
-        self.timeout=timeout if timeout is not None else self.DEFAULT_TIMEOUT
-        self.description=description if description else self.formattable_xpath.format("'index'")
+    ) -> None:
+        self.index = 1
+        self.browser = browser
+        self.formattable_xpath = formattable_xpath
+        self.timeout = timeout if timeout is not None else self.DEFAULT_TIMEOUT
+        self.description = description if description else self.formattable_xpath.format("'index'")
 
     def __iter__(self):
-        self.index=1
+        self.index = 1
         return self
 
-    def __next__(self) ->WebElement:
+    def __next__(self) -> WebElement:
         current_element = WebElement(self.browser, self.formattable_xpath.format(self.index),
                                      f"{self.description}[{self.index}]",
                                      timeout=self.timeout
@@ -31,7 +31,7 @@ class WebElements():
         if not current_element.is_exists():
             raise StopIteration
         else:
-            self.index+=1
+            self.index += 1
             return current_element
 
     def __str__(self):
@@ -39,7 +39,3 @@ class WebElements():
 
     def __repr__(self):
         return str(self)
-
-
-
-

@@ -34,4 +34,3 @@ class IFrameLeftPanelPage(BasePage):
 
     def click_frames(self):
         self.frames_button.js_click()
-

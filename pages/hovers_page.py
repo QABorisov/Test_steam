@@ -6,13 +6,12 @@ from elements.web_elements import WebElements
 from logger.logger import Logger
 from pages.base_page import BasePage
 from selenium.webdriver.common.action_chains import ActionChains
-from bs4 import BeautifulSoup
 
 
 class HoversPage(BasePage):
     UNIQUE_ELEMENT_LOC = "//h3[contains(text(), 'Hovers')]"
 
-    COUNT_USERS_LOC = 'content'
+    COUNT_USERS_LOC = '//*[@class="figure"][{}]'
     USER_BY_INDEX_LOC = '//*[@class="figure"][{}]'
     USER_NAME_BY_INDEX_LOC = '//*[@class="figure"][{}]//h5'
     USER_LINK_BY_INDEX_LOC = '//*[@class="figure"][{}]//*[contains(text(), "View profile")]'
@@ -23,17 +22,13 @@ class HoversPage(BasePage):
         self.unique_element = WebElement(self.browser, self.UNIQUE_ELEMENT_LOC,
                                          description="HoversPage -> title")
 
-        self.count_users_element = WebElement(self.browser, self.COUNT_USERS_LOC,
+        self.count_users_element = WebElements(self.browser, self.COUNT_USERS_LOC,
                                                description="HoversPage -> Count users elements")
 
     def get_count_users(self):
         Logger.info(f"{self.name} get count users by BeautifulSoup")
-        count_users=0
-        soup=BeautifulSoup(self.count_users_element.get_attribute("innerHTML"), "html.parser")
-        items=soup.find_all(class_="figure")
-        for _ in items:
-            count_users+=1
-        return count_users
+        users_list = list(self.count_users_element)
+        return len(users_list)
 
     def hover_over_user(self, index):
         Logger.info(f"{self.name} hover over user {index}")

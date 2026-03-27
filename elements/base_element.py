@@ -1,4 +1,3 @@
-
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -56,18 +55,16 @@ class BaseElement:
     def wait_for_presence(self) -> WebElement:
         return self._wait_for(expected_condition=expected_conditions.presence_of_element_located)
 
-    # def wait_for_presence_of_all_elements(self) -> WebElement:
-    #     return self._wait_for(expected_condition=expected_conditions.presence_of_all_elements_located)
-
     def wait_for_clickable(self) -> WebElement:
         return self._wait_for(expected_condition=expected_conditions.element_to_be_clickable)
 
     def wait_for_visible(self) -> WebElement:
         return self._wait_for(expected_condition=expected_conditions.visibility_of_element_located)
 
-    def is_exists(self):
+    def is_exists(self, timeout=0):
         try:
-            self.wait_for_presence()
+            WebDriverWait(self.browser.driver, timeout=timeout).until(
+                expected_conditions.presence_of_element_located(self.locator))
             return True
         except TimeoutException:
             return False
