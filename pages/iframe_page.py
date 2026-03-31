@@ -8,11 +8,11 @@ from pages.base_page import BasePage
 
 
 class IFrameLeftPanelPage(BasePage):
-    UNIQUE_ELEMENT_LOC = '//*[@class="left-pannel"]'
+    UNIQUE_ELEMENT_LOC = '//*[contains(@class,"left-pannel")]'
 
-    ALERT_FRAME_WINDOW_LOC = '//*[@class="element-group"][3]//*[@class="header-wrapper"]'
-    NESTED_FRAMES_LOC = '//*[@class="element-group"][3]//*[@id="item-3"]'
-    FRAMES_LOC = '//*[@class="element-group"][3]//*[@id="item-2"]//a'
+    ALERT_FRAME_WINDOW_LOC = '//*[contains(@class,"element-group")][3]//*[contains(@class,"header-wrapper")]'
+    NESTED_FRAMES_LOC = '//*[contains(@class,"element-group")][3]//*[@id="item-3"]'
+    FRAMES_LOC = '//*[contains(@class,"element-group")][3]//*[@id="item-2"]//a'
 
     def __init__(self, browser):
         super().__init__(browser)

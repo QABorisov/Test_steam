@@ -11,10 +11,10 @@ from selenium.webdriver.common.action_chains import ActionChains
 class HoversPage(BasePage):
     UNIQUE_ELEMENT_LOC = "//h3[contains(text(), 'Hovers')]"
 
-    COUNT_USERS_LOC = '//*[@class="figure"][{}]'
-    USER_BY_INDEX_LOC = '//*[@class="figure"][{}]'
-    USER_NAME_BY_INDEX_LOC = '//*[@class="figure"][{}]//h5'
-    USER_LINK_BY_INDEX_LOC = '//*[@class="figure"][{}]//*[contains(text(), "View profile")]'
+    COUNT_USERS_LOC = '//*[contains(@class,"figure")][{}]'
+    USER_BY_INDEX_LOC = '//*[contains(@class,"figure")][{}]'
+    USER_NAME_BY_INDEX_LOC = '//*[contains(@class,"figure")][{}]//h5'
+    USER_LINK_BY_INDEX_LOC = '//*[contains(@class,"figure")][{}]//*[contains(text(), "View profile")]'
 
     def __init__(self, browser):
         super().__init__(browser)

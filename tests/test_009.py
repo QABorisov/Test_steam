@@ -19,6 +19,6 @@ def test_dynamic_content(browser):
         list_img = dynamic_content.get_list_link_img()
         set_img = set(list_img)
         if len(list_img) == len(set_img):
-            browser.driver.refresh()
+            browser.refresh()
         else:
             break

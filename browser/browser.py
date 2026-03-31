@@ -123,6 +123,10 @@ class Browser:
         Logger.info(f"{self} switch to frame")
         return self.driver.switch_to.frame(frame.wait_for_presence())
 
+    def refresh(self):
+        Logger.info(f"{self} refresh")
+        return self.driver.refresh()
+
     def __str__(self):
         return f"{self.__class__.__name__}{self._driver.session_id}"
 

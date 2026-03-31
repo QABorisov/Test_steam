@@ -10,7 +10,7 @@ from pages.base_page import BasePage
 class InfinityScrollPage(BasePage):
     UNIQUE_ELEMENT_LOC = "//h3[contains(text(), 'Infinite Scroll')]"
 
-    PARAGRAPHS_LOC = '//*[@class="jscroll-inner"]//*[@class="jscroll-added"][{}]'
+    PARAGRAPHS_LOC = '//*[contains(@class, "jscroll-inner")]//*[contains(@class, "jscroll-added")][{}]'
 
     def __init__(self, browser):
         super().__init__(browser)
