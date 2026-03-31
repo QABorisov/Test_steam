@@ -28,6 +28,9 @@ class UploadImagePage(BasePage):
 
         self.upload_input = Input(self.browser, self.UPLOAD_LOC,
                                   description="UploadImagePage ->Upload Input")
+        self.select_file_button = Button(self.browser, self.UPLOAD_LOC,
+                                  description="UploadImagePage ->Select File Button")
+
         self.upload_button = Button(self.browser, self.UPLOAD_BUTTON_LOC,
                                     description="UploadImagePage ->Upload Button")
         self.uploaded_element = WebElement(self.browser, self.UPLOADED_LOC,
@@ -43,9 +46,8 @@ class UploadImagePage(BasePage):
         self.check_mark_element = WebElement(self.browser, self.CHECK_MARK_LOC,
                                              description="UploadImagePage ->Check Mark Element")
 
-    def upload_image(self, path):
+    def upload_image(self, path_file):
         Logger.info(f"{self.name} upload image")
-        path_file = os.path.abspath(path)
         self.upload_input.send_keys(path_file)
         self.upload_button.click()
 
@@ -66,3 +68,7 @@ class UploadImagePage(BasePage):
         self.check_mark_element.wait_for_presence()
         file_name = self.file_name_area_element.get_text()
         return file_name
+
+    def open_explorer(self):
+        Logger.info(f"{self.name} open explorer")
+        self.select_file_button.js_click()
