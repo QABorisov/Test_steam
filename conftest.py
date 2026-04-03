@@ -4,7 +4,8 @@ from browser.browser_factory import BrowserFactory
 
 @pytest.fixture
 def browser():
-    driver = BrowserFactory.get_driver()
+    docker_options = ["--headless", "--no-sandbox", "--disable-dev-shm-usage"]
+    driver = BrowserFactory.get_driver(options=docker_options)
     browser = Browser(driver)
     yield browser
     browser.quit()
