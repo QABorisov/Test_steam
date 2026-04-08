@@ -1,0 +1,5 @@
+Faker==40.13.0
+pyautogui==0.9.54
+pygetwindow==0.0.9
+pytest==9.0.2
+selenium==4.41.0
